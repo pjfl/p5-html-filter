@@ -1,13 +1,32 @@
-package HTML::Filter;
+package HTML::Filter::Constants;
 
-use 5.010001;
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 2 $ =~ /\d+/gmx );
+use strictures;
 
-use Moo;
+use HTML::Filter::Exception;
 
-extends 'HTML::Filter::Node::AllowChildren';
+use Sub::Exporter -setup => { exports => [
+   qw( EXCEPTION_CLASS FALSE NUL TRUE )
+]};
 
-use namespace::autoclean;
+sub FALSE () { 0   }
+sub NUL   () { q() }
+sub TRUE  () { 1   }
+
+sub EXCEPTION_CLASS () { __PACKAGE__->Exception_Class }
+
+my $exception_class = 'HTML::Filter::Exception';
+
+sub Exception_Class {
+   my ($self, $class) = @_;
+
+   return $exception_class unless defined $class;
+
+   $exception_class->throw(
+      "Exception class ${class} is not loaded or has no throw method"
+   ) unless $class->can('throw');
+
+   return $exception_class = $class;
+}
 
 1;
 
@@ -19,11 +38,11 @@ __END__
 
 =head1 Name
 
-HTML::Filter - One-line description of the modules purpose
+HTML::Filter::Constants - One-line description of the modules purpose
 
 =head1 Synopsis
 
-   use HTML::Filter;
+   use HTML::Filter::Constants;
    # Brief but working code examples
 
 =head1 Description
@@ -44,7 +63,7 @@ Defines the following attributes;
 
 =over 3
 
-=item L<Moo>
+=item L<Class::Usul>
 
 =back
 

@@ -1,5 +1,7 @@
 Revision history for HTML::Filter
 
+          - Added Perl packages, JS, and LESS files
+
 0.1.1     2024-06-09 16:15:19
           - Added project files to master branch
 

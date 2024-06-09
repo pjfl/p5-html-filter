@@ -1,11 +1,17 @@
-package HTML::Filter;
+package HTML::Filter::Exception;
 
-use 5.010001;
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 2 $ =~ /\d+/gmx );
-
+use Unexpected::Functions qw( has_exception );
 use Moo;
 
-extends 'HTML::Filter::Node::AllowChildren';
+extends q(Unexpected);
+with    q(Unexpected::TraitFor::ErrorLeader);
+with    q(Unexpected::TraitFor::ExceptionClasses);
+
+my $class = __PACKAGE__;
+
+has '+class' => default => $class;
+
+has_exception $class;
 
 use namespace::autoclean;
 
@@ -19,11 +25,11 @@ __END__
 
 =head1 Name
 
-HTML::Filter - One-line description of the modules purpose
+HTML::Filter::Exception - One-line description of the modules purpose
 
 =head1 Synopsis
 
-   use HTML::Filter;
+   use HTML::Filter::Exception;
    # Brief but working code examples
 
 =head1 Description
@@ -44,7 +50,7 @@ Defines the following attributes;
 
 =over 3
 
-=item L<Moo>
+=item L<Class::Usul>
 
 =back
 
