@@ -1,5 +1,6 @@
 Revision history for HTML::Filter
 
+          - Main package POD update
           - Added Perl packages, JS, and LESS files
 
 0.1.1     2024-06-09 16:15:19

@@ -1,7 +1,7 @@
 package HTML::Filter;
 
 use 5.010001;
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 2 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 3 $ =~ /\d+/gmx );
 
 use Moo;
 
@@ -19,32 +19,45 @@ __END__
 
 =head1 Name
 
-HTML::Filter - One-line description of the modules purpose
+HTML::Filter - Generates SQL::Abstract from JS graphical query editor
 
 =head1 Synopsis
 
-   use HTML::Filter;
-   # Brief but working code examples
+   use HTML::Filter::Parser;
+
+   my $json     = {};
+   my $table    = $schema->resultset('TableBeingFiltered');
+   my $parser   = HTML::Filter::Parser->new(config => {});
+   my $filter   = $parser->parse($json);
+   my $abstract = $filter->to_abstract({ table => $table });
 
 =head1 Description
 
+JS executing in the browser updates the value of a hidden input field on an
+HTML form. When posted to the server the parser consumes the JSON provided
+and produces a representation of the query in L<SQL::Abstract> format which
+is in turn consumed by L<DBIx::Class> which produces an SQL query and bind
+values
+
 =head1 Configuration and Environment
 
-Defines the following attributes;
-
-=over 3
-
-=back
+Defines no attributes
 
 =head1 Subroutines/Methods
 
+Defines no methods
+
 =head1 Diagnostics
+
+None
 
 =head1 Dependencies
 
 =over 3
 
 =item L<Moo>
+
+=item L<Unexpected>
 
 =back
 
