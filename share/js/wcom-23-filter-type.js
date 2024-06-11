@@ -519,7 +519,7 @@ WCom.Filters.Type = (function() {
                   url: this.url
                });
             }.bind(this)
-         }, '...');
+         }, this.h.span('...'));
          return [button, this.display, this.input];
       }
       toDisplay() {

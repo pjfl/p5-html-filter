@@ -3,7 +3,7 @@
 if (!WCom.Filters) WCom.Filters = {};
 WCom.Filters.Editor = (function() {
    const dsName = 'filterConfig';
-   const triggerClass = 'filter-container';
+   const filterId = 'filter-container';
    class Editor {
       constructor(container, config) {
          this.config = config;
@@ -531,11 +531,14 @@ WCom.Filters.Editor = (function() {
       constructor() {
          this.editor;
       }
-      scan(content = document) {
-         const el = content.getElementsByClassName(triggerClass)[0];
-         if (!el) return;
-         this.editor = new Editor(el, JSON.parse(el.dataset[dsName]));
-         this.editor.render();
+      scan(content, options = {}) {
+         setTimeout(function(event) {
+            const id = options['filterId'] || filterId;
+            const el = document.getElementById(id);
+            if (!el) return;
+            this.editor = new Editor(el, JSON.parse(el.dataset[dsName]));
+            this.editor.render();
+         }, 500);
       }
       createRegistrar(data) { return new Registrar(data) }
    }

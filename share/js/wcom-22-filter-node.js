@@ -234,7 +234,7 @@ WCom.Filters.Node = (function() {
          return true;
       }
       nodeClick() {
-         if (filterEditor.editor.treeDragged) return;
+         if (filterEditor.editor && filterEditor.editor.treeDragged) return;
          this.registry.fire('nodeclick', this);
       }
       notSelectable() {
