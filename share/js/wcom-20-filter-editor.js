@@ -533,12 +533,13 @@ WCom.Filters.Editor = (function() {
       }
       scan(content, options = {}) {
          setTimeout(function(event) {
+            if (this.editor) return;
             const id = options['filterId'] || filterId;
             const el = document.getElementById(id);
             if (!el) return;
             this.editor = new Editor(el, JSON.parse(el.dataset[dsName]));
             this.editor.render();
-         }, 500);
+         }.bind(this), 500);
       }
       createRegistrar(data) { return new Registrar(data) }
    }

@@ -1,5 +1,6 @@
 Revision history for HTML::Filter
 
+          - Prevent multiple invocations
           - Find filter by id not class
           - Main package POD update
           - Added Perl packages, JS, and LESS files
