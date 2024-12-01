@@ -1,5 +1,6 @@
 Revision history for HTML::Filter
 
+          - Register scan with Util.Event
           - Prevent multiple invocations
           - Find filter by id not class
           - Main package POD update

@@ -530,6 +530,9 @@ WCom.Filters.Editor = (function() {
    class Manager {
       constructor() {
          this.editor;
+         WCom.Util.Event.register(function(content, options) {
+            this.scan(content, options)
+         }.bind(this));
       }
       scan(content, options = {}) {
          setTimeout(function(event) {
