@@ -529,19 +529,18 @@ WCom.Filters.Editor = (function() {
    }
    class Manager {
       constructor() {
-         this.editor;
+         this.editor = {};
          WCom.Util.Event.register(function(content, options) {
             this.scan(content, options)
          }.bind(this));
       }
       scan(content, options = {}) {
          setTimeout(function(event) {
-            if (this.editor) return;
             const id = options['filterId'] || filterId;
             const el = document.getElementById(id);
             if (!el) return;
-            this.editor = new Editor(el, JSON.parse(el.dataset[dsName]));
-            this.editor.render();
+            this.editor[id] = new Editor(el, JSON.parse(el.dataset[dsName]));
+            this.editor[id].render();
          }.bind(this), 500);
       }
       createRegistrar(data) { return new Registrar(data) }
