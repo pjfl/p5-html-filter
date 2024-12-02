@@ -9,7 +9,6 @@ WCom.Filters.Editor = (function() {
          this.config = config;
          this.container = container;
          this.dragThreshold = config['drag-threshold'] || 3;
-         this.editorDisplay = this.h.div({ className: 'filter-editor' });
          this.instance = true;
          this.ruleEditorWidth = config['rule-editor-width'] || 200;
          this.startHighlightDelay = config['start-highlight-delay'] || 100;
@@ -110,9 +109,32 @@ WCom.Filters.Editor = (function() {
          return { x: x, y: y };
       }
       render() {
+         this.treeElement = this.tree.render();
+         this.treeScrollBigFx = new FxStyles(this.tree.el, {
+            duration: 1300, transition: FxTransitions.elasticOut
+         });
+         this.treeScrollFx = new FxStyles(this.tree.el, {
+            duration: 300, transition: FxTransitions.cubicInOut
+         });
+         this.editorDisplay = this.h.div({ className: 'filter-editor' });
+         const callback = function(event) { this.drag(event) }.bind(this);
+         this.editorDisplay.addEventListener(
+            'mousedown', this._mousedownHandler(callback)
+         );
+         this.container.appendChild(this.editorDisplay);
          if (this.error) return this.renderErrorState();
-         const dragCallback = function(event) { this.drag(event) }.bind(this);
-         this.editorDisplay.addEventListener('mousedown', function(event) {
+         this.editorDisplay.appendChild(this.treeElement);
+         this.container.appendChild(this.ruleEditor.render());
+         this.setupResizer();
+         setTimeout(function() {
+            const node = this.tree.getFirstRule();
+            this.tree.selectRule(node);
+            this.ruleSelect(node, true);
+         }.bind(this), this.startHighlightDelay);
+         return;
+      }
+      _mousedownHandler(dragCallback) {
+         return function(event) {
             this.treeScrollFx.clearTimer();
             this.treeScrollBigFx.clearTimer();
             this.scrollStart = {
@@ -139,24 +161,7 @@ WCom.Filters.Editor = (function() {
             };
             document.addEventListener('mouseup', mouseupCallback);
             this.treeDragged = false;
-         }.bind(this));
-         this.treeElement = this.tree.render();
-         this.editorDisplay.appendChild(this.treeElement);
-         this.treeScrollBigFx = new FxStyles(this.tree.el, {
-            duration: 1300, transition: FxTransitions.elasticOut
-         });
-         this.treeScrollFx = new FxStyles(this.tree.el, {
-            duration: 300, transition: FxTransitions.cubicInOut
-         });
-         this.container.appendChild(this.editorDisplay);
-         this.container.appendChild(this.ruleEditor.render());
-         setTimeout(function() {
-            const node = this.tree.getFirstRule();
-            this.tree.selectRule(node);
-            this.ruleSelect(node, true);
-         }.bind(this), this.startHighlightDelay);
-         this.setupResizer();
-         return;
+         }.bind(this);
       }
       renderErrorState() {
          const attr = { className: 'filter-error' };
@@ -529,7 +534,7 @@ WCom.Filters.Editor = (function() {
    }
    class Manager {
       constructor() {
-         this.editor = {};
+         this.editor;
          WCom.Util.Event.register(function(content, options) {
             this.scan(content, options)
          }.bind(this));
@@ -538,9 +543,11 @@ WCom.Filters.Editor = (function() {
          setTimeout(function(event) {
             const id = options['filterId'] || filterId;
             const el = document.getElementById(id);
-            if (!el) return;
-            this.editor[id] = new Editor(el, JSON.parse(el.dataset[dsName]));
-            this.editor[id].render();
+            if (el && !el.getAttribute('rendered')) {
+               el.setAttribute('rendered', true);
+               this.editor = new Editor(el, JSON.parse(el.dataset[dsName]));
+               this.editor.render();
+            }
          }.bind(this), 500);
       }
       createRegistrar(data) { return new Registrar(data) }
