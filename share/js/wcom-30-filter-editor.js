@@ -290,7 +290,8 @@ WCom.Filters.Editor = (function() {
          this.node = node;
          this.registry = new Registrar(['save', 'cancel']);
       }
-      cancelEditorChanges() {
+      cancelEditorChanges(event) {
+         event.preventDefault();
          this.node.editorCancel();
          this.registry.fire('cancel', this);
       }
@@ -322,11 +323,15 @@ WCom.Filters.Editor = (function() {
          content.push(this.h.div({ className: 'node-rule-edit-footer' }, [
             this.h.button({
                className: 'node-rule-edit-cancel',
-               onclick: function() { this.cancelEditorChanges() }.bind(this),
+               onclick: function(event) {
+                  this.cancelEditorChanges(event)
+               }.bind(this),
             }, this.h.span('Cancel')),
             this.h.button({
                className: 'node-rule-edit-save',
-               onclick: function() { this.saveEditorChanges() }.bind(this),
+               onclick: function(event) {
+                  this.saveEditorChanges(event)
+               }.bind(this),
             }, this.h.span('OK'))
          ]));
          const el = this.h.fieldset({
@@ -339,7 +344,8 @@ WCom.Filters.Editor = (function() {
          this.animateButtons(container);
          return container;
       }
-      saveEditorChanges() {
+      saveEditorChanges(event) {
+         event.preventDefault();
          if (this.node.updateValue() == false) return;
          this.node.editorSave();
          this.registry.fire('save', this);
@@ -535,9 +541,8 @@ WCom.Filters.Editor = (function() {
    class Manager {
       constructor() {
          this.editor;
-         WCom.Util.Event.register(function(content, options) {
-            this.scan(content, options)
-         }.bind(this));
+         const scan = function(c, o) { this.scan(c, o) }.bind(this);
+         WCom.Util.Event.registerOnload(scan);
       }
       scan(content, options = {}) {
          setTimeout(function(event) {

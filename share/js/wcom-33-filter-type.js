@@ -439,7 +439,7 @@ WCom.Filters.Type = (function() {
          this.input.setAttribute('readonly', true);
          const button = this.h.button({
             className: 'type-field-button',
-            onclick: function(event) { this._clickHandler() }.bind(this)
+            onclick: function(event) { this._clickHandler(event) }.bind(this)
          }, this.h.span('...'));
          return [button, this.input];
       }
@@ -463,7 +463,8 @@ WCom.Filters.Type = (function() {
          this.fieldName = values.pop();
          this.tableId = values.pop();
       }
-      _clickHandler() {
+      _clickHandler(event) {
+         event.preventDefault();
          const callback = function(data) {
             if (data) this.input.value = data.value;
          }.bind(this);
@@ -510,6 +511,7 @@ WCom.Filters.Type = (function() {
          const button = this.h.button({
             className: 'type-list-button',
             onclick: function(event) {
+               event.preventDefault();
                WCom.Modal.create({
                   callback: function(ok, popup, data) { if (ok) callback(data)},
                   cancelCallback: function() {},
