@@ -1,5 +1,6 @@
 Revision history for HTML::Filter
 
+          - Put selector button at end of field for consistancy
           - Specify rule editor width from config
           - Changed event register method name in JS utils
           - Fixes multi rendering bug

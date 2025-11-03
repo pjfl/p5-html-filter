@@ -441,7 +441,7 @@ WCom.Filters.Type = (function() {
             className: 'type-field-button',
             onclick: function(event) { this._clickHandler(event) }.bind(this)
          }, this.h.span('...'));
-         return [button, this.input];
+         return [this.input, button];
       }
       toDisplay() {
          if (!this.fieldName) return '<no field selected>';
