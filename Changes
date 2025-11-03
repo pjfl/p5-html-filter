@@ -1,5 +1,6 @@
 Revision history for HTML::Filter
 
+          - Specify rule editor width from config
           - Changed event register method name in JS utils
           - Fixes multi rendering bug
           - Renamed JS files to sort after Form JS ones

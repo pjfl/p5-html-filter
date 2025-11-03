@@ -10,7 +10,6 @@ WCom.Filters.Editor = (function() {
          this.container = container;
          this.dragThreshold = config['drag-threshold'] || 3;
          this.instance = true;
-         this.ruleEditorWidth = config['rule-editor-width'] || 200;
          this.startHighlightDelay = config['start-highlight-delay'] || 100;
 
          const fieldName = config['field-name'] || 'filter_json';
@@ -239,7 +238,7 @@ WCom.Filters.Editor = (function() {
       constructor(config) {
          this.config = config;
          this.registry = new Registrar(['close']);
-         this.padding = 2;
+         this.ruleEditorWidth = config['rule-editor-width'] || 300;
       }
       cancelRule() {
          this.clear();
@@ -271,7 +270,7 @@ WCom.Filters.Editor = (function() {
             onComplete: function() { this.element.style.overflow = 'auto' },
             transition: FxTransitions.cubicInOut
          });
-         this.ruleEditorFx.initialWidth = this.el.scrollWidth + this.padding;
+         this.ruleEditorFx.initialWidth = this.ruleEditorWidth;
          return this.ruleEditorFx;
       }
       render() {
