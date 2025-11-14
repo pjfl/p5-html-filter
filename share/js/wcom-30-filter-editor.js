@@ -76,7 +76,7 @@ WCom.Filters.Editor = (function() {
       }
       getNodeCenter(node) {
          const editorSize = this.h.getDimensions(this.editorDisplay);
-         const nodeOffset = this.h.elementOffset(node.wrapper, this.tree.el);
+         const nodeOffset = this.h.getElementOffset(node.wrapper, this.tree.el);
          const nodeSize = this.h.getDimensions(node.el);
          if (nodeOffset.left == 0 && nodeOffset.top == 0 && nodeSize.height == 0
              && nodeSize.width == 0) return;
@@ -89,7 +89,7 @@ WCom.Filters.Editor = (function() {
          return { x: x, y: y };
       }
       pointer(event) {
-         const offset = this.h.elementOffset(this.editorDisplay);
+         const offset = this.h.getElementOffset(this.editorDisplay);
          const pos = this.pointerPos(event);
          return {
             x: offset.left + this.scrollStart.x + pos.x,
