@@ -89,7 +89,7 @@ WCom.Filters.Editor = (function() {
          return { x: x, y: y };
       }
       pointer(event) {
-         const offset = this.h.cumulativeOffset(this.editorDisplay);
+         const offset = this.h.elementOffset(this.editorDisplay);
          const pos = this.pointerPos(event);
          return {
             x: offset.left + this.scrollStart.x + pos.x,
