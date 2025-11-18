@@ -1,3 +1,11 @@
+@checkbox-height: 1.25rem;
+@checkbox-knob-width: 20px;
+@checkbox-width: 40px;
+@filter-editor-height: 400px;
+@filter-editor-width: 850px;
+@filter-editor-max-height: 800px;
+@filter-input-max-width: 10rem;
+@filter-rule-max-width: 20rem;
 #colours() {
     button-bg: bisque;
     button-border: gainsboro;
@@ -30,7 +38,9 @@
     system: Roboto, system-ui, sans-serif;
 }
 #grads() {
-    button-bg: linear-gradient(0deg, #colours[button-bg], #colours[contrast]);
+    button-bg: linear-gradient(
+        0deg, #colours[button-bg], #colours[contrast]
+    );
     button-disabled-bg: linear-gradient(
         0deg, #colours[button-disabled-bg], #colours[contrast]
     );
@@ -38,8 +48,8 @@
         #colours[button-hover], transparent, transparent
     );
     filter-edge-left: linear-gradient(
-        to right, transparent, transparent 50%, #colours[line-border] 50.001%,
-        #colours[line-border]
+        to right, transparent, transparent 50%,
+        #colours[line-border] 50.001%, #colours[line-border]
     );
     filter-edge-right: linear-gradient(
         to right, #colours[line-border], #colours[line-border] 50%,
@@ -48,16 +58,6 @@
     filter-lines: linear-gradient(
         to right, #colours[line-border] 1px, transparent 1px, transparent
     );
-}
-#sizes() {
-    checkbox-height: 1.25rem;
-    checkbox-knob-width: 20px;
-    checkbox-width: 40px;
-    filter-editor-height: 400px;
-    filter-editor-width: 850px;
-    filter-editor-max-height: 800px;
-    filter-input-max-width: 10rem;
-    filter-rule-max-width: 20rem;
 }
 .filter-container {
     align-items: flex-start; display: flex; justify-content: center;
@@ -89,9 +89,9 @@
         background: #colours[filter-editor-bg];
         border: 1px solid #colours[line-border]; border-radius: 5px;
         box-shadow: 3px 3px 3px; color: #colours[panel-shadow];
-        height: #sizes[filter-editor-height];
-        max-height: #sizes[filter-editor-max-height]; overflow: hidden;
-        position: relative; width: #sizes[filter-editor-width];
+        height: @filter-editor-height;
+        max-height: @filter-editor-max-height; overflow: hidden;
+        position: relative; width: @filter-editor-width;
         .filter-tree {
             background: #grads[filter-lines]; background-position-x: 100%;
             background-repeat: no-repeat; background-size: 50% 100%;
@@ -165,7 +165,7 @@
     .node-rule-wrapper {
         background: #colours[filter-rule-editor-bg]; border-radius: 5px;
         box-shadow: 3px 3px 3px; color: #colours[panel-shadow];
-        margin: 0 auto; max-width: #sizes[filter-rule-max-width];
+        margin: 0 auto; max-width: @filter-rule-max-width;
         position: static;
         .node-rule-box {
             border: 1px solid #colours[line-border];
@@ -335,7 +335,7 @@
             font-family: #fonts[data];
         }
         select, input {
-            max-width: #sizes[filter-input-max-width];
+            max-width: @filter-input-max-width;
         }
         .type-date-relative input {
             text-align: right; width: 4ch;
@@ -355,8 +355,8 @@
         .checkbox-wrapper {
             display: inline-block; isolation: isolate; position: relative;
             input[type=checkbox] {
-                height: #sizes[checkbox-height]; margin: 0; opacity: 0;
-                position: relative; top: 4px; width: #sizes[checkbox-width];
+                height: @checkbox-height; margin: 0; opacity: 0;
+                position: relative; top: 4px; width: @checkbox-width;
                 z-index: 3;
             }
         }
@@ -364,18 +364,18 @@
             background: #grads[button-bg];
             border: 2px inset #colours[button-border]; border-radius: 10px;
             content: ''; display: block; position: absolute;
-            height: #sizes[checkbox-height]; left: 0; top: 4px;
-            width: #sizes[checkbox-knob-width]; z-index: 2;
+            height: @checkbox-height; left: 0; top: 4px;
+            width: @checkbox-knob-width; z-index: 2;
         }
         .checkbox-wrapper:has(input[type=checkbox]:checked)::after {
-            left: #sizes[checkbox-knob-width];
+            left: @checkbox-knob-width;
         }
         .checkbox-wrapper::before {
             background: #colours[checkbox-false-bg];
             border: 2px inset #colours[button-border]; border-radius: 10px;
             content: ''; display: block; position: absolute;
-            height: #sizes[checkbox-height]; left: 0; top: 4px;
-            width: #sizes[checkbox-width]; z-index: 1;
+            height: @checkbox-height; left: 0; top: 4px;
+            width: @checkbox-width; z-index: 1;
         }
         .checkbox-wrapper:has(input[type=checkbox]:checked)::before {
             background: #colours[checkbox-true-bg];
