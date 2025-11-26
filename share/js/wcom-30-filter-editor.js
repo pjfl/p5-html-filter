@@ -238,7 +238,7 @@ WCom.Filters.Editor = (function() {
       constructor(config) {
          this.config = config;
          this.registry = new Registrar(['close']);
-         this.ruleEditorWidth = config['rule-editor-width'] || 300;
+         this.editorMinWidth = config['editor-min-width'] || 250;
       }
       cancelRule() {
          this.clear();
@@ -257,6 +257,10 @@ WCom.Filters.Editor = (function() {
          this.editor.registry.listen('save', this.saveRule, this);
          this.editor.registry.listen('cancel', this.cancelRule, this);
          this.el.appendChild(await this.editor.render());
+         const { width } = this.h.getDimensions(this.editor.nodeRuleEditor);
+         const minWidth = this.editorMinWidth;
+         this.ruleEditorWidth
+            = width < minWidth ? minWidth : Math.round(width + (width / 10));
          const fx = this.fx();
          fx.custom(this.el.offsetWidth, this.ruleEditorFx.initialWidth);
       }
@@ -275,7 +279,6 @@ WCom.Filters.Editor = (function() {
       }
       render() {
          this.el = this.h.div({ className: 'rule-editor' });
-         this.el.style.width = 0;
          return this.el;
       }
       saveRule() {
@@ -333,13 +336,13 @@ WCom.Filters.Editor = (function() {
                }.bind(this),
             }, this.h.span('OK'))
          ]));
-         const el = this.h.fieldset({
+         this.nodeRuleEditor = this.h.fieldset({
             className: 'node-rule-edit',
             onkeypress: function(event) { this.keyPressed(event) }.bind(this)
          }, content);
          const container = this.h.div({
             className: 'node-rule-edit-container'
-         }, el);
+         }, this.nodeRuleEditor);
          this.animateButtons(container);
          return container;
       }
