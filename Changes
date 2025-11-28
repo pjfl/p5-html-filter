@@ -1,5 +1,6 @@
 Revision history for HTML::Filter
 
+          - More CSS refactoring
           - CSS colour refactoring
           - CSS no longer has a sizes map
           - Renamed elementOffset to getElementOffset for consistancy
