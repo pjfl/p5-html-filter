@@ -1,5 +1,9 @@
-// -*- coding: utf-8; -*-
-// Package WCom.Filters.Editor
+/** -*- coding: utf-8; -*-
+    @file HTML Filter - Editor
+    @classdesc Render the filter editor
+    @author pjfl@cpan.org (Peter Flanigan)
+    @version 0.1.18
+*/
 if (!WCom.Filters) WCom.Filters = {};
 WCom.Filters.Editor = (function() {
    const dsName = 'filterConfig';

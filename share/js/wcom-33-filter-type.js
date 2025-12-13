@@ -1,5 +1,9 @@
-// -*- coding: utf-8; -*-
-// Package WCom.Filters.Type
+/** -*- coding: utf-8; -*-
+    @file HTML Filter - Types
+    @classdesc Render the filter types
+    @author pjfl@cpan.org (Peter Flanigan)
+    @version 0.1.18
+*/
 WCom.Filters.Type = (function() {
    const idCache = {};
    class Type {

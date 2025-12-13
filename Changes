@@ -1,5 +1,6 @@
 Revision history for HTML::Filter
 
+          - Added version numbers to LESS and JS
           - CSS button bg using global styling
           - More CSS refactoring
           - CSS colour refactoring

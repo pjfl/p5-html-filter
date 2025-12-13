@@ -1,5 +1,9 @@
-// -*- coding: utf-8; -*-
-// Package WCom.Filters.NodeTree
+/** -*- coding: utf-8; -*-
+    @file HTML Filter - Node Tree
+    @classdesc Render the filter node tree
+    @author pjfl@cpan.org (Peter Flanigan)
+    @version 0.1.18
+*/
 WCom.Filters.NodeTree = (function() {
    const filterEditor = WCom.Filters.Editor.manager;
    class NodeTree {

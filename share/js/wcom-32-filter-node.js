@@ -1,5 +1,9 @@
-// -*- coding: utf-8; -*-
-// Package WCom.Filters.Node
+/** -*- coding: utf-8; -*-
+    @file HTML Filter - Node
+    @classdesc Render the filter node
+    @author pjfl@cpan.org (Peter Flanigan)
+    @version 0.1.18
+*/
 WCom.Filters.Node = (function() {
    const filterEditor = WCom.Filters.Editor.manager;
    const classes = [];
