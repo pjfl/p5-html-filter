@@ -2,10 +2,13 @@
     @file HTML Filter - Node
     @classdesc Render the filter node
     @author pjfl@cpan.org (Peter Flanigan)
-    @version 0.1.18
+    @version 0.1.19
 */
 WCom.Filters.Node = (function() {
    const filterEditor = WCom.Filters.Editor.manager;
+   const destroyFast = function container(el) {
+      while (el.firstChild) el.removeChild(el.firstChild);
+   };
    const classes = [];
    classes.push('Node');
    class Node {
@@ -72,7 +75,7 @@ WCom.Filters.Node = (function() {
          return this.el;
       }
       update() {
-         this.el.innerHTML = '';
+         destroyFast(this.el);
          if (!this.hasSingleNode()) this.el.appendChild(this.addEl);
          const attr = { className: 'node-logic-and' };
          const tbody = this.h.tbody(this._contentRows());
@@ -119,7 +122,7 @@ WCom.Filters.Node = (function() {
          return this.el;
       }
       update() {
-         this.el.innerHTML = '';
+         destroyFast(this.el);
          const node = this.nodes[0];
          this.el.appendChild(node.render());
          if (node.type == 'Logic.Or') this.el.appendChild(this.addAnd);
@@ -145,7 +148,7 @@ WCom.Filters.Node = (function() {
          return this.el;
       }
       update() {
-         this.el.innerHTML = '';
+         destroyFast(this.el);
          if (!this.hasSingleNode()) this.el.appendChild(this.addEl);
          const attr = { className: 'node-logic-or' };
          const tbody = this.h.tbody(this._contentRows());
@@ -281,7 +284,7 @@ WCom.Filters.Node = (function() {
          }, [titleWrapper, this.status, ...contents]);
          if (this.isValid()) {
             this.el.classList.remove('rule-error');
-            this.status.innerHTML = '';
+            destroyFast(this.status);
          }
          else this.el.classList.add('rule-error');
          return box;
@@ -319,7 +322,7 @@ WCom.Filters.Node = (function() {
          if (this.el) this.el.id = '';
       }
       update() {
-         this.inner.innerHTML = '';
+         destroyFast(this.inner);
          this.inner.appendChild(this.renderContent());
       }
       updateValue() {

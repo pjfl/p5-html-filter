@@ -2,10 +2,13 @@
     @file HTML Filter - Types
     @classdesc Render the filter types
     @author pjfl@cpan.org (Peter Flanigan)
-    @version 0.1.18
+    @version 0.1.19
 */
 WCom.Filters.Type = (function() {
    const idCache = {};
+   const destroyFast = function container(el) {
+      while (el.firstChild) el.removeChild(el.firstChild);
+   };
    class Type {
       constructor(args, label) {
          this.config = args.config || {};
@@ -141,7 +144,7 @@ WCom.Filters.Type = (function() {
             const label = this.label;
             this.date = eval('new ' + dateTypeClass + '(args, label)');
          }
-         this.dateContainer.innerHTML = '';
+         destroyFast(this.dateContainer);
          this.dateContainer.appendChild(await this.date.render());
       }
    }
@@ -546,7 +549,7 @@ WCom.Filters.Type = (function() {
          const { object } = await this.bitch.sucks(url);
          this.listId = listId;
          this.listName = object['list_name'];
-         this.display.innerHTML = '';
+         destroyFast(this.display);
          this.display.appendChild(document.createTextNode(this.toDisplay()));
       }
       async updateRuleBox(el) {
@@ -554,7 +557,7 @@ WCom.Filters.Type = (function() {
          const url = this.apiURL('get', 'list_name', { list_id: this.listId });
          const { object } = await this.bitch.sucks(url);
          this.listName = object['list_name'];
-         el.innerHTML = '';
+         destroyFast(el);
          el.appendChild(document.createTextNode(this.toDisplay()));
       }
    }
@@ -665,7 +668,7 @@ WCom.Filters.Type = (function() {
       }
       updateRuleTypeSelector() {
          if (!this.ruleTypeSelector.value) return;
-         this.ruleSelectorContainer.innerHTML = '';
+         destroyFast(this.ruleSelectorContainer);
          const options = [];
          for (const item of this.filterRules(this.ruleTypeSelector.value)) {
             options.push(this.h.option({ value: item.type }, item.label));

@@ -2,12 +2,15 @@
     @file HTML Filter - Editor
     @classdesc Render the filter editor
     @author pjfl@cpan.org (Peter Flanigan)
-    @version 0.1.18
+    @version 0.1.19
 */
 if (!WCom.Filters) WCom.Filters = {};
 WCom.Filters.Editor = (function() {
    const dsName = 'filterConfig';
    const filterId = 'filter-container';
+   const destroyFast = function container(el) {
+      while (el.firstChild) el.removeChild(el.firstChild);
+   };
    class Editor {
       constructor(container, config) {
          this.config = config;
@@ -255,7 +258,7 @@ WCom.Filters.Editor = (function() {
       }
       async editRule(node) {
          this.cleared = false;
-         this.el.innerHTML = '';
+         destroyFast(this.el);
          this.ruleEditorFx = null;
          this.editor = new RuleEditorInterface(node);
          this.editor.registry.listen('save', this.saveRule, this);

@@ -2,10 +2,13 @@
     @file HTML Filter - Node Tree
     @classdesc Render the filter node tree
     @author pjfl@cpan.org (Peter Flanigan)
-    @version 0.1.18
+    @version 0.1.19
 */
 WCom.Filters.NodeTree = (function() {
    const filterEditor = WCom.Filters.Editor.manager;
+   const destroyFast = function container(el) {
+      while (el.firstChild) el.removeChild(el.firstChild);
+   };
    class NodeTree {
       constructor(data, config) {
          this.config = config;
@@ -211,7 +214,7 @@ WCom.Filters.NodeTree = (function() {
          this.selectRule();
       }
       update() {
-         this.el.innerHTML = '';
+         destroyFast(this.el);
          this.el.appendChild(this.root.render());
       }
       _breakCircularRefs(root) {

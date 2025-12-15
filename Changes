@@ -1,5 +1,6 @@
 Revision history for HTML::Filter
 
+          - Removes use of innerHTML
           - Added version numbers to LESS and JS
           - CSS button bg using global styling
           - More CSS refactoring
