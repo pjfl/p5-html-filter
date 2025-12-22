@@ -2,10 +2,10 @@
     @file HTML Filter - Node Tree
     @classdesc Render the filter node tree
     @author pjfl@cpan.org (Peter Flanigan)
-    @version 0.1.19
+    @version 0.1.20
 */
 WCom.Filters.NodeTree = (function() {
-   const filterEditor = WCom.Filters.Editor.manager;
+   const filterEditor = WCom.Filters.Editor;
    const destroyFast = function container(el) {
       while (el.firstChild) el.removeChild(el.firstChild);
    };

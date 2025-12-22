@@ -2,7 +2,7 @@
     @file HTML Filter - Editor
     @classdesc Render the filter editor
     @author pjfl@cpan.org (Peter Flanigan)
-    @version 0.1.19
+    @version 0.1.20
 */
 if (!WCom.Filters) WCom.Filters = {};
 WCom.Filters.Editor = (function() {
@@ -18,7 +18,6 @@ WCom.Filters.Editor = (function() {
          this.dragThreshold = config['drag-threshold'] || 3;
          this.instance = true;
          this.startHighlightDelay = config['start-highlight-delay'] || 100;
-
          const fieldName = config['field-name'] || 'filter_json';
          this.field = document.getElementById(fieldName);
          if (!this.field) {
@@ -245,7 +244,7 @@ WCom.Filters.Editor = (function() {
       constructor(config) {
          this.config = config;
          this.registry = new Registrar(['close']);
-         this.editorMinWidth = config['editor-min-width'] || 250;
+         this.editorMinWidth = config['editor-min-width'] || 300;
       }
       cancelRule() {
          this.clear();
@@ -549,24 +548,26 @@ WCom.Filters.Editor = (function() {
    }
    class Manager {
       constructor() {
+         this.domWait = 0.5;
          this.editor;
          const scan = function(c, o) { this.scan(c, o) }.bind(this);
          WCom.Util.Event.registerOnload(scan);
       }
-      scan(content, options = {}) {
+      scan(content = document, options = {}) {
          setTimeout(function(event) {
             const id = options['filterId'] || filterId;
-            const el = document.getElementById(id);
-            if (el && !el.getAttribute('rendered')) {
-               el.setAttribute('rendered', true);
-               this.editor = new Editor(el, JSON.parse(el.dataset[dsName]));
-               this.editor.render();
-            }
-         }.bind(this), 500);
+            const el = content.querySelector('#' + id);
+            if (!el) return;
+            destroyFast(el);
+            this.editor = new Editor(el, JSON.parse(el.dataset[dsName]));
+            this.editor.render();
+         }.bind(this), (1000 * this.domWait));
       }
       createRegistrar(data) { return new Registrar(data) }
    }
+   const manager = new Manager();
    return {
-      manager: new Manager()
+      createRegistrar: manager.createRegistrar.bind(manager),
+      editor: manager.editor
    };
 })();

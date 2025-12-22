@@ -2,11 +2,12 @@
     @file HTML Filter - Types
     @classdesc Render the filter types
     @author pjfl@cpan.org (Peter Flanigan)
-    @version 0.1.19
+    @version 0.1.20
 */
 WCom.Filters.Type = (function() {
    const idCache = {};
    const destroyFast = function container(el) {
+      if (!el) return;
       while (el.firstChild) el.removeChild(el.firstChild);
    };
    class Type {
@@ -95,7 +96,10 @@ WCom.Filters.Type = (function() {
          return this.date ? this.date.isValid() : false;
       }
       render() {
-         return this.createTypeContainer(this.label, this.renderInput());
+         const tc = this.createTypeContainer(this.label, this.renderInput());
+         this.dateContainer = this.h.div({ className: 'type-date-container' });
+         this.updateDisplay();
+         return this.h.div({}, [tc, this.dateContainer]);
       }
       renderInput() {
          this.dateType = this.dateType || 'Type.Date.NoDate';
@@ -121,9 +125,7 @@ WCom.Filters.Type = (function() {
                value: 'Type.Date.Relative'
             }, '"Today\'s" Date')
          ]);
-         this.dateContainer = this.h.div({ className: 'type-date-container' });
-         this.updateDisplay();
-         return [this.input, this.dateContainer];
+         return [this.input];
       }
       toDisplay() {
          return this.date ? this.date.toDisplay() : '<no date selected>';
@@ -207,10 +209,13 @@ WCom.Filters.Type = (function() {
       isValid() {
          return !(this.date == 'Invalid Date');
       }
-      async render() {
-         return this.createTypeContainer(this.label, await this.renderInput());
+      render() {
+         const tc = this.createTypeContainer(this.label, this.renderInput());
+         this.tzContainer = this.h.div({});
+         this.updateTZ();
+         return this.h.div({}, [tc, this.tzContainer]);
       }
-      async renderInput() {
+      renderInput() {
          this.input = this.h.input({
             className: 'type-date-absolute type-field-date',
             id: this.generateId('type-field-date'),
@@ -218,17 +223,7 @@ WCom.Filters.Type = (function() {
             type: 'text',
             value: this._toLocaleDateString(this.toDateString())
          });
-         this.timezoneSelect = this.h.select({
-            className: 'type-date-absolute type-field-timezone',
-            id: this.generateId('type-timezone'),
-            onchange: function(event) {
-               this.timezone = this.timezoneSelect.value
-            }.bind(this)
-         }, await this.timezoneOptions());
-         const tzContainer = this.createTypeContainer(
-            'Time zone', [this.timezoneSelect]
-         );
-         return [this.input, tzContainer];
+         return [this.input];
       }
       toDateString() {
          if (!this.isValid()) return null;
@@ -267,6 +262,18 @@ WCom.Filters.Type = (function() {
             window.alert('Dates must be in ' + this._placeHolder() + ' format');
             throw 'Bad date format';
          }
+      }
+      async updateTZ() {
+         this.timezoneSelect = this.h.select({
+            className: 'type-date-absolute type-field-timezone',
+            id: this.generateId('type-timezone'),
+            onchange: function(event) {
+               this.timezone = this.timezoneSelect.value
+            }.bind(this)
+         }, await this.timezoneOptions());
+         this.tzContainer.appendChild(
+            this.createTypeContainer('Time zone', [this.timezoneSelect])
+         );
       }
       _fromLocaleDateString(dateString) {
          const testDate = new Date('2001/11/9').toLocaleDateString();
@@ -345,7 +352,7 @@ WCom.Filters.Type = (function() {
             this.h.option({ selected: !this.past, value: '0' }, 'Today plus...')
          ]);
          els.push(
-            this.createTypeContainer('Date Modification', [this.inputs.past])
+            this.createTypeContainer('Modification', [this.inputs.past])
          );
          ['years', 'months', 'days'].forEach(function(name) {
             els.push(this._createField(name));
@@ -575,7 +582,8 @@ WCom.Filters.Type = (function() {
          return true;
       }
       render() {
-         return this.createTypeContainer(this.label, this.renderInput());
+         const input = this.renderInput();
+         return this.createTypeContainer(this.label, input, this.input.id);
       }
       renderInput() {
          const inputId = this.generateId('type-checkbox');
@@ -588,7 +596,7 @@ WCom.Filters.Type = (function() {
             type: 'checkbox', value: 1
          });
          const attr = { className: 'checkbox-wrapper' };
-         return [this.h.span(attr, this.input), label];
+         return [label, this.h.span(attr, this.input)];
       }
       toDisplay() {
          return this.toString();

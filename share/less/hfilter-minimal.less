@@ -1,5 +1,5 @@
 /* @author  pjfl@cpan.org (Peter Flanigan)
- * @version 0.1.18
+ * @version 0.1.20
  * Colours */
 @button-bg-disabled: linear-gradient(0deg, gainsboro, whitesmoke);
 @button-border: gainsboro;
@@ -50,7 +50,7 @@
 #fonts() {
     cursive: 'Segoe Print', 'Bradley Hand', 'Chilanka', casual, cursive;
     mono: 'Cascadia Code', 'Menlo', 'DejaVu Sans Mono', ui-monospace, monospace;
-    sans: 'Segoe UI', 'Roboto', 'Helvetica', system-ui, sans-serif;
+    sans: 'Roboto', 'Segoe UI', 'Helvetica', system-ui, sans-serif;
     serif: 'DejaVu Serif', 'Sitka Small', serif;
 }
 #grads() {
@@ -317,8 +317,8 @@
         }
     }
     .type-container {
-        align-items: baseline; display: flex; margin: 0.5rem 0;
-        justify-content: flex-start;
+        align-items: baseline; display: flex;
+        margin: 0.5rem 0; justify-content: flex-start;
         input[type=text] {
             border-radius: 5px; font-family: #fonts[serif];
             font-size: @data-font-size; font-weight: @data-font-weight;
@@ -326,16 +326,14 @@
         }
         label {
             font-family: #fonts[sans]; font-size: @system-font-size;
-            line-height: 1rem; padding-right: 0.5rem; white-space: nowrap;
-        }
-        label.type-negate {
-            padding-left: 0.25rem; padding-top: 0.25rem;
+            line-height: 1rem; min-width: 5rem; padding-right: 0.5rem;
+            white-space: nowrap;
         }
         select {
             font-family: #fonts[serif];
         }
         select, input {
-            max-width: @filter-input-max-width;
+            max-width: @filter-input-max-width !important;
         }
         .type-date-relative input {
             text-align: right; width: 4ch;
@@ -389,9 +387,6 @@
     .type-container.type-date-relative-months,
     .type-container.type-date-relative-years {
         margin-bottom: 0;
-        label {
-            min-width: 3.5rem;
-        }
     }
     .type-container.type-numeric-value input.type-string {
         text-align: right; width: 7rem;
