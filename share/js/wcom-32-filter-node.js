@@ -2,7 +2,7 @@
     @file HTML Filter - Node
     @classdesc Render the filter node
     @author pjfl@cpan.org (Peter Flanigan)
-    @version 0.1.20
+    @version 0.1.21
 */
 WCom.Filters.Node = (function() {
    const filterEditor = WCom.Filters.Editor;
@@ -483,7 +483,7 @@ WCom.Filters.Node = (function() {
             field:  { label: 'Field', type: 'Field', dataType: 'numeric' },
             number: { label: 'Value', type: 'Numeric' }
          };
-         data.label ||= 'Field numeric match';
+         data.label ||= 'Numeric match';
          data.type ||= 'Rule.Numeric';
          super(data);
       }
@@ -499,7 +499,7 @@ WCom.Filters.Node = (function() {
    classes.push('RuleNumericEqualTo');
    class RuleNumericEqualTo extends RuleNumeric {
       constructor(data) {
-         data.label ||= 'Field equals';
+         data.label ||= 'Equals';
          data.type ||= 'Rule.Numeric.EqualTo';
          super(data);
       }
@@ -510,7 +510,7 @@ WCom.Filters.Node = (function() {
    classes.push('RuleNumericLessThan');
    class RuleNumericLessThan extends RuleNumeric {
       constructor(data) {
-         data.label ||= 'Field less than';
+         data.label ||= 'Less than';
          data.type ||= 'Rule.Numeric.LessThan';
          super(data);
       }
@@ -521,7 +521,7 @@ WCom.Filters.Node = (function() {
    classes.push('RuleNumericGreaterThan');
    class RuleNumericGreaterThan extends RuleNumeric {
       constructor(data) {
-         data.label ||= 'Field greater than';
+         data.label ||= 'Greater than';
          data.type ||= 'Rule.Numeric.GreaterThan';
          super(data);
       }
@@ -537,7 +537,7 @@ WCom.Filters.Node = (function() {
             negate: { label: 'Inverse', type: 'Negate' },
             string: { label: 'Match text', type: 'String' }
          };
-         data.label ||= 'Field text match';
+         data.label ||= 'Text match';
          data.type ||= 'Rule.String';
          super(data);
       }
@@ -553,7 +553,7 @@ WCom.Filters.Node = (function() {
    classes.push('RuleStringBegins');
    class RuleStringBegins extends RuleString {
       constructor(data) {
-         data.label ||= 'Field begins with';
+         data.label ||= 'Begins with';
          data.type ||= 'Rule.String.Begins';
          super(data);
       }
@@ -564,7 +564,7 @@ WCom.Filters.Node = (function() {
    classes.push('RuleStringContains');
    class RuleStringContains extends RuleString {
       constructor(data) {
-         data.label ||= 'Field contains';
+         data.label ||= 'Contains';
          data.type ||= 'Rule.String.Contains';
          super(data);
       }
@@ -575,7 +575,7 @@ WCom.Filters.Node = (function() {
    classes.push('RuleStringEnds');
    class RuleStringEnds extends RuleString {
       constructor(data) {
-         data.label ||= 'Field ends with';
+         data.label ||= 'Ends with';
          data.type ||= 'Rule.String.Ends';
          super(data);
       }
@@ -586,7 +586,7 @@ WCom.Filters.Node = (function() {
    classes.push('RuleStringEquals');
    class RuleStringEquals extends RuleString {
       constructor(data) {
-         data.label ||= 'Field equals';
+         data.label ||= 'Equals';
          data.type ||= 'Rule.String.Equals';
          super(data);
       }
@@ -601,7 +601,7 @@ WCom.Filters.Node = (function() {
             field:  { label: 'Field', type: 'Field' },
             negate: { label: 'Inverse', type: 'Negate' }
          };
-         data.label ||= 'Field is empty';
+         data.label ||= 'Is empty';
          data.type ||= 'Rule.String.IsEmpty';
          super(data);
       }
@@ -621,9 +621,9 @@ WCom.Filters.Node = (function() {
          data.fields ||= {
             field:  { label: 'Field', type: 'Field' },
             negate: { label: 'Inverse', type: 'Negate' },
-            string: { label: 'Match text (one per line)', type: 'MultiString' }
+            string: { label: 'Match text', type: 'MultiString' }
          };
-         data.label ||= 'Field matches list';
+         data.label ||= 'Matches list';
          data.type ||= 'Rule.String.List';
          super(data);
       }

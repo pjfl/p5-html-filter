@@ -2,7 +2,7 @@
     @file HTML Filter - Editor
     @classdesc Render the filter editor
     @author pjfl@cpan.org (Peter Flanigan)
-    @version 0.1.20
+    @version 0.1.21
 */
 if (!WCom.Filters) WCom.Filters = {};
 WCom.Filters.Editor = (function() {
@@ -307,8 +307,9 @@ WCom.Filters.Editor = (function() {
          const target = event.target;
          if (event.ignoreKeyPress
              || (target.nodeName == 'TEXTAREA'
-                 && !!~target.className.indexOf('type-multistring')))
+                 && !!~target.className.indexOf('type-multistring'))) {
             return;
+         }
          if (event.keyCode == 13) {
             event.preventDefault();
             this.saveEditorChanges();

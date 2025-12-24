@@ -4,7 +4,7 @@ use HTML::Filter::Constants qw( FALSE NUL TRUE );
 use HTML::Filter::Types     qw( ArrayRef Str );
 use Moo;
 
-extends 'HTML::Filter::Node::Type::String';
+extends 'HTML::Filter::Type::String';
 
 sub value {
    my $self   = shift;

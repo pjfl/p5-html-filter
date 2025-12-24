@@ -2,7 +2,7 @@
     @file HTML Filter - Types
     @classdesc Render the filter types
     @author pjfl@cpan.org (Peter Flanigan)
-    @version 0.1.20
+    @version 0.1.21
 */
 WCom.Filters.Type = (function() {
    const idCache = {};
@@ -643,7 +643,7 @@ WCom.Filters.Type = (function() {
       render() {
          this.ruleSelectorContainer = this.h.div(this.renderInput());
          return this.h.div({ className: 'node-rule-edit-content' }, [
-            this.createTypeContainer('Rule category', [this.ruleTypeSelector]),
+            this.createTypeContainer('Category', [this.ruleTypeSelector]),
             this.ruleSelectorContainer
          ]);
       }
@@ -752,12 +752,13 @@ WCom.Filters.Type = (function() {
             strings.push(line.replace(/^\s+|\s+$/g, ''));
          const value = lines.length
             ? strings.join('\n').replace(/(\r\n|\r|\n)/g, '\r\n') : '';
-         return this.input({
+         this.input = this.h.textarea({
             className: 'type-string-input type-multistring',
             id: this.generateId('type-multistring'),
             onkeypress: function(event) { event.ignoreKeyPress = true },
             value: value
          });
+         return this.input;
       }
       toDisplay() {
          const values = this.values();
@@ -766,7 +767,7 @@ WCom.Filters.Type = (function() {
          while (count < 20 && values.length) {
             const value = values.shift();
             count += value.length;
-            displayed.push('"' + val + '"');
+            displayed.push('"' + value + '"');
          }
          const string = displayed.join(', ');
          if (values.length) string += ' and ' + values.length + ' more.';

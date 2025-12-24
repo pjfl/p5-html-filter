@@ -1,5 +1,5 @@
 /* @author  pjfl@cpan.org (Peter Flanigan)
- * @version 0.1.20
+ * @version 0.1.21
  * Colours */
 @button-bg-disabled: linear-gradient(0deg, gainsboro, whitesmoke);
 @button-border: gainsboro;
@@ -37,7 +37,7 @@
 @filter-editor-height: 400px;
 @filter-editor-width: 850px;
 @filter-editor-max-height: 800px;
-@filter-input-max-width: 10rem;
+@filter-input-max-width: 8rem;
 @filter-rule-max-width: 20rem;
 
 /* Font Sizes and Weights */
@@ -173,10 +173,11 @@
         background: @filter-bg-rule-editor; border-radius: 5px;
         box-shadow: 3px 3px 3px; color: @panel-shadow;
         margin: 0 auto; max-width: @filter-rule-max-width;
-        position: static;
+        position: static; width: fit-content;
         .node-rule-box {
             border: 1px solid @line-border; border-radius: 5px; color: @text;
             cursor: pointer; font-size: @system-font-size; position: relative;
+            width: fit-content;
             .node-rule-box-inner {
                 min-width: 6rem;
                 div > div:nth-child(3) {
@@ -334,6 +335,9 @@
         }
         select, input {
             max-width: @filter-input-max-width !important;
+        }
+        textarea {
+            min-width: unset !important;
         }
         .type-date-relative input {
             text-align: right; width: 4ch;
