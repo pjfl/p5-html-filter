@@ -1,5 +1,6 @@
 Revision history for HTML::Filter
 
+          - Moved LESS constants to wcom-05-constants.less
           - Improved form styling
           - Inflation scanning not using document anymore
           - Removes use of innerHTML
