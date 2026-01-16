@@ -2,7 +2,7 @@
     @file HTML Filter - Types
     @classdesc Render the filter types
     @author pjfl@cpan.org (Peter Flanigan)
-    @version 0.1.21
+    @version 0.1.23
 */
 WCom.Filters.Type = (function() {
    const idCache = {};
@@ -49,7 +49,7 @@ WCom.Filters.Type = (function() {
       }
       async timezoneOptions() {
          if (!this._timezoneObject) {
-            const url = this.apiURL('get', 'timezones');
+            const url = this.apiURL('fetch', 'timezones');
             const { object } = await this.bitch.sucks(url);
             this._timezoneObject = object;
          }
@@ -552,7 +552,7 @@ WCom.Filters.Type = (function() {
          this.listId = this.input.value;
       }
       async updateListDisplay(listId) {
-         const url = this.apiURL('get', 'list_name', { list_id: listId });
+         const url = this.apiURL('fetch', 'list_name', { list_id: listId });
          const { object } = await this.bitch.sucks(url);
          this.listId = listId;
          this.listName = object['list_name'];
@@ -561,7 +561,7 @@ WCom.Filters.Type = (function() {
       }
       async updateRuleBox(el) {
          if (!this.listId) return;
-         const url = this.apiURL('get', 'list_name', { list_id: this.listId });
+         const url = this.apiURL('fetch', 'list_name', { list_id: this.listId});
          const { object } = await this.bitch.sucks(url);
          this.listName = object['list_name'];
          destroyFast(el);

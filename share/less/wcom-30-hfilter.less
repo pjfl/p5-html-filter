@@ -1,5 +1,5 @@
 /* @author  pjfl@cpan.org (Peter Flanigan)
- * @version 0.1.21
+ * @version 0.1.23
  * Colours */
 @import "wcom-05-constants";
 #grads() {
@@ -164,7 +164,7 @@
                     margin: 0; padding-right: 0.25rem; white-space: nowrap;
                 }
                 .node-rule-remove-button {
-                    background: var(--button-bg); border-radius: 3px;
+                    background: var(--btn-bg); border-radius: 3px;
                     box-shadow: 2px 2px 2px @panel-shadow;
                     color: @text-close; cursor: pointer;
                     font-family: #fonts[sans]; font-weight: bold;
@@ -219,7 +219,7 @@
         .node-rule-edit-container {
             color: @text-dark; min-width: 12rem; padding: 0 0.5rem 0.5rem;
             button {
-                background: var(--button-bg);
+                background: var(--btn-bg);
                 border: 2px outset @btn-border; border-radius: 50px;
                 color: @text-link; cursor: pointer; display: inline-block;
                 line-height: @system-font-size; margin-right: 0.25rem;
@@ -236,7 +236,7 @@
                 border: 2px inset @btn-border; color: @text-dark;
             }
             button::before {
-                background: var(--button-bg-highlight); content: '';
+                background: var(--btn-bg-highlight); content: '';
                 display: block; height: 3rem; left: var(--x);
                 opacity: 0; position: absolute;
                 top: var(--y); transform: translate(-50%, -50%);
@@ -246,11 +246,11 @@
                 opacity: 1;
             }
             button::after {
-                background: var(--button-bg); border-radius: 50px;
+                background: var(--btn-bg); border-radius: 50px;
                 content: ''; inset: 3px; position: absolute; z-index: 2;
             }
             button[disabled=disabled], button[disabled=disabled]::after {
-                background: var(--button-bg-disabled);
+                background: var(--btn-bg-disabled);
             }
             .node-rule-edit {
                 border-collapse: separate; border-spacing: 0 0.5rem;
@@ -312,7 +312,7 @@
             }
         }
         .checkbox-wrapper::after {
-            background: var(--button-bg);
+            background: var(--btn-bg);
             border: 2px inset @btn-border; border-radius: 10px;
             content: ''; display: block; position: absolute;
             height: @checkbox-height; left: 0; top: 4px;

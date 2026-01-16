@@ -1,5 +1,6 @@
 Revision history for HTML::Filter
 
+          - API endpoint changed
           - Moved LESS constants to wcom-05-constants.less
           - Improved form styling
           - Inflation scanning not using document anymore
